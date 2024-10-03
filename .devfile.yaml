@@ -1,0 +1,61 @@
+schemaVersion: 2.2.0
+metadata:
+  name: camel-sandbox
+  version: 1.0.0
+  displayName: Apache Camel Sandbox
+  description: Integration sandbox environment for prototyping
+  generateName: camel-sandbox
+  icon: >-
+    https://raw.githubusercontent.com/devfile-samples/devfile-stack-icons/main/java-maven.jpg
+  tags:
+    - Java
+    - Camel
+  language: java
+attributes:
+  controller.devfile.io/storage-type: per-user
+components:
+  - name: tools
+    container:
+      image: quay.io/devfile/universal-developer-image:latest
+      env:
+        - name: MAVEN_OPTS
+          value: "-Dmaven.repo.local=/home/user/.m2/repository"
+      memoryLimit: 3Gi
+      mountSources: true
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+      endpoints:
+        - name: http-8778
+          targetPort: 8778
+        - name: devtools
+          targetPort: 8000
+        - name: http
+          targetPort: 8080
+          exposure: public
+          secure: false
+          protocol: http
+        - name: http-8443
+          targetPort: 8443
+        - name: debug
+          targetPort: 5005
+          exposure: none
+          secure: false
+          protocol: tcp
+  - name: m2
+    volume:
+      size: 1G
+commands:
+  - id: fix-java-version
+    exec:
+      component: tools
+      commandLine: 'rm -rf ${HOME}/.java/current/* && ln -s /usr/lib/jvm/java-17-openjdk/* ${HOME}/.java/current'
+  - id: install-camel-cli
+    exec:
+      # commandLine: source ~/.bashrc && jbang app install camel@apache/camel
+      commandLine: 'source ~/.bashrc && jbang trust add https://github.com/apache/camel/ && jbang app install camel@apache/camel'
+      component: tools
+events:
+  postStart:
+    - fix-java-version
+    - install-camel-cli
