@@ -52,10 +52,14 @@ commands:
       commandLine: 'rm -rf ${HOME}/.java/current/* && ln -s /usr/lib/jvm/java-17-openjdk/* ${HOME}/.java/current'
   - id: install-camel-cli
     exec:
-      # commandLine: source ~/.bashrc && jbang app install camel@apache/camel
       commandLine: 'source ~/.bashrc && jbang trust add https://github.com/apache/camel/ && jbang app install camel@apache/camel'
+      component: tools
+  - id: install-camel-k8s-plugin
+    exec:
+      commandLine: 'source ~/.bashrc && camel plugin add kubernetes'
       component: tools
 events:
   postStart:
     - fix-java-version
     - install-camel-cli
+    - install-camel-k8s-plugin
