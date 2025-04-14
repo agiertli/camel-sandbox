@@ -25,7 +25,6 @@ components:
         - name: QUARKUS_ANALYTICS_DISABLED
           value: "true"
       memoryLimit: 3Gi
-      cpuLimit: 2500m
       mountSources: true
       volumeMounts:
         - name: m2
