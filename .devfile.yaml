@@ -12,15 +12,20 @@ metadata:
     - Camel
   language: java
 attributes:
-  controller.devfile.io/storage-type: per-user
+  controller.devfile.io/storage-type: per-workspace
 components:
   - name: tools
     container:
       image: quay.io/devfile/universal-developer-image:latest
       env:
+        - name: QUARKUS_HTTP_HOST
+          value: 0.0.0.0
         - name: MAVEN_OPTS
           value: "-Dmaven.repo.local=/home/user/.m2/repository"
+        - name: QUARKUS_ANALYTICS_DISABLED
+          value: "true"
       memoryLimit: 3Gi
+      cpuLimit: 2500m
       mountSources: true
       volumeMounts:
         - name: m2
@@ -46,10 +51,6 @@ components:
     volume:
       size: 1G
 commands:
-  - id: fix-java-version
-    exec:
-      component: tools
-      commandLine: 'rm -rf ${HOME}/.java/current/* && ln -s /usr/lib/jvm/java-17-openjdk/* ${HOME}/.java/current'
   - id: install-camel-cli
     exec:
       commandLine: 'source ~/.bashrc && jbang trust add https://github.com/apache/camel/ && jbang app install camel@apache/camel'
@@ -60,6 +61,5 @@ commands:
       component: tools
 events:
   postStart:
-    - fix-java-version
     - install-camel-cli
     - install-camel-k8s-plugin
