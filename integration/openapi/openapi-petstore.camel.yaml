@@ -1,0 +1,18 @@
+- restConfiguration:
+    apiContextPath: api-doc
+    clientRequestValidation: true
+- rest:
+    id: rest-3076
+    openApi:
+      specification: api/petstore-v3.json
+- route:
+    id: route-3079
+    from:
+      id: from-8662
+      uri: direct
+      parameters:
+        name: addPet
+      steps:
+        - log:
+            id: log-3184
+            message: ${body}

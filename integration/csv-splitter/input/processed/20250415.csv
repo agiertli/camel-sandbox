@@ -1,0 +1,7 @@
+id,date,amount,description
+TXN001,2025-04-15T08:30:00Z,150.00,Payment for invoice INV1001
+TXN002,2025-04-15T09:45:00Z,-200.50,Refund for order ORD54321 (invalid negative amount)
+TXN003,2025-04-15T10:15:00Z,300.75,Payment for invoice INV1002
+TXN001,2025-04-15T11:00:00Z,150.00,Duplicate payment for invoice INV1001
+TXN004,2025-04-15T11:30:00Z,1200.00,High value order transaction for manual review
+TXN005,2025-04-15T12:00:00Z,80.00,Payment for invoice INV1003

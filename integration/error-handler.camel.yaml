@@ -1,0 +1,15 @@
+- errorHandler:
+    deadLetterChannel:
+      deadLetterUri: "log:dead"
+      redeliveryPolicy: 
+        maximumRedeliveries: 5
+        retryAttemptedLogLevel: WARN
+
+- from:
+    uri: "timer:yaml"
+    parameters:
+      period: "1000"
+    steps:
+      - throwException:
+          exceptionType: "java.lang.IllegalArgumentException"
+          message: "Forced error"

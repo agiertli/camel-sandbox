@@ -1,0 +1,34 @@
+- route:
+    id: route-1218
+    from:
+      id: from-1559
+      uri: timer
+      parameters:
+        period: "1000"
+        timerName: template
+      steps:
+        - setVariables:
+            id: setVariables-2639
+            variables:
+              - name: route:second:random.number
+                simple:
+                  expression: ${random(1,10)}
+              - name: global:app
+                simple:
+                  expression: ${camelId}
+- route:
+    id: second
+    from:
+      id: from-4158
+      uri: timer
+      parameters:
+        period: "1000"
+        timerName: random
+      steps:
+        - setBody:
+            id: setBody-2307
+            simple:
+              expression: "${variable.global:greeting}: ${variable.route:random.number}"
+        - log:
+            id: log-3654
+            message: ${body}

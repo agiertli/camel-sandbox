@@ -1,0 +1,12 @@
+- route:
+    from:
+      uri: "kamelet:slack-source"
+      parameters:
+        channel: "{{channel}}"
+        token: "{{token}}"
+      steps:
+        - to: 
+            uri: "kamelet:log-sink"
+            parameters:
+              showStreams: true
+              showHeaders: true

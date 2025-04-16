@@ -1,0 +1,37 @@
+- route:
+    id: start-zeebe-process
+    from:
+      id: from-1372
+      uri: timer
+      parameters:
+        repeatCount: "1"
+        timerName: t
+      steps:
+        - setBody:
+            expression:
+              simple:
+                expression: "
+
+                  \      {
+
+                  \        \"process_id\" : \"Process_1vw3dft\",
+
+                  \        \"variables\" : {
+
+                  \          \"v1\" : \"a\",
+
+                  \          \"v2\" : 10
+
+                  \        }
+
+                  \      }
+
+                  \    "
+        - to:
+            uri: zeebe
+            parameters:
+              operationName: startProcess
+        - to:
+            id: to-1673
+            uri: log:InfoLogger
+            parameters: {}

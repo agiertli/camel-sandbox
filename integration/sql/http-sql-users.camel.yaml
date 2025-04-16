@@ -1,0 +1,63 @@
+- route:
+    id: route-1599
+    description: user-post
+    from:
+      id: from-1409
+      uri: platform-http
+      parameters:
+        consumes: application/json
+        httpMethodRestrict: POST
+        path: /users
+      steps:
+        - setHeader:
+            id: setHeader-1036
+            constant:
+              expression: application/json
+            name: Content-Type
+        - unmarshal:
+            id: unmarshal-3841
+            json: {}
+        - convertBodyTo:
+            id: convertBodyTo-3495
+            type: java.util.Map
+        - log:
+            id: log-3863
+            message: ${body}
+        - to:
+            id: to-4277
+            uri: sql
+            parameters:
+              query: INSERT INTO users (name) VALUES (:#name)
+        - setBody:
+            id: setBody-1701
+            simple:
+              expression: User ${body[name]} added successfully
+- route:
+    id: route-9381
+    description: user-get
+    from:
+      id: from-2527
+      uri: platform-http
+      parameters:
+        httpMethodRestrict: GET
+        path: /users/{user}
+      steps:
+        - log:
+            id: log-1268
+            message: ${header.user}
+        - to:
+            id: to-2225
+            uri: sql
+            parameters:
+              outputType: SelectOne
+              query: select * from users where name = :#user
+        - marshal:
+            id: marshal-4156
+            json: {}
+        - setBody:
+            id: setBody-3141
+            jq:
+              expression: del(.id)
+        - log:
+            id: log-2643
+            message: ${body}

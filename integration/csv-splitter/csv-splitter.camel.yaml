@@ -1,0 +1,18 @@
+- route:
+    id: ingestAndProcessTransactions
+    from:
+      uri: file
+      parameters:
+        directoryName: input
+        include: .*\.csv
+        move: processed
+      steps:
+        - unmarshal:
+            csv:
+              useMaps: true
+        - split:
+            steps:
+              - log:
+                  id: log-3434
+                  message: ${body}
+            simple: ${body}
