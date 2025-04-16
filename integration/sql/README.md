@@ -3,7 +3,7 @@
 ## Run the Camel route
 
 ```sh
-camel run http-sql-users.camel.yaml application.properties --dep=org.xerial:sqlite-jdbc:3.49.1.0 --dev
+camel run http-sql-users.camel.yaml --dev
 ```
 
 ## Usage
