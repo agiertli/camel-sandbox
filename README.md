@@ -27,9 +27,6 @@ A sandbox environment for prototyping and deploying Apache Camel integrations. I
 3. Start Example Integration:
    Open Kaoto side panel → Click **Run** next to chosen Camel integration
 
-4. Start Multi-file Example Integration:  
-   In the Terminal, navigate to the desired example folder and follow the instructions in its README to run the integration.
-
 ## License
 
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0)
