@@ -1,0 +1,33 @@
+- route:
+    id: route-c5e2
+    from:
+      uri: kamelet:mqtt5-source
+      id: from-b3d6
+      parameters:
+        topic: temperature
+        brokerUrl: tcp://localhost:1883
+      steps:
+        - transform:
+            id: transform-a607
+            expression:
+              jq:
+                expression: .value
+                id: jq-d9d0
+        - choice:
+            when:
+              - id: when-1bdb
+                expression:
+                  simple:
+                    expression: ${body} > 20
+                    id: simple-5f3c
+                steps:
+                  - log:
+                      message: Warm temperature at ${body}
+                      id: log-04f5
+            id: choice-0565
+            otherwise:
+              id: otherwise-2305
+              steps:
+                - log:
+                    message: Cold temperator at ${body}
+                    id: log-dcb6
