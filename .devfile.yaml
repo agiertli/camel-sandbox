@@ -56,9 +56,9 @@ components:
       volumeMounts:
         - name: mqtt-conf
           path: /mosquitto/config
-        - name: mqtt-conf
+        - name: mqtt-data
           path: /mosquitto/data
-        - name: mqtt-conf
+        - name: mqtt-log
           path: /mosquitto/log
   - name: m2
     volume:
