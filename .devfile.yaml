@@ -46,17 +46,40 @@ components:
           exposure: none
           secure: false
           protocol: tcp
+  - name: mqtt
+    container:
+      image: eclipse-mosquitto
+      endpoints:
+        - name: http-1883
+          targetPort: 1883
+          protocol: tcp
+      volumeMounts:
+        - name: mqtt-conf
+          path: /mosquitto/config
+        - name: mqtt-conf
+          path: /mosquitto/data
+        - name: mqtt-conf
+          path: /mosquitto/log
   - name: m2
+    volume:
+      size: 1G
+  - name: mqtt-conf
+    volume:
+      size: 1G
+  - name: mqtt-data
+    volume:
+      size: 1G
+  - name: mqtt-log
     volume:
       size: 1G
 commands:
   - id: install-camel-cli
     exec:
-      commandLine: 'source ~/.bashrc && jbang trust add https://github.com/apache/camel/ && jbang app install camel@apache/camel'
+      commandLine: "source ~/.bashrc && jbang trust add https://github.com/apache/camel/ && jbang app install camel@apache/camel"
       component: tools
   - id: install-camel-k8s-plugin
     exec:
-      commandLine: 'source ~/.bashrc && camel plugin add kubernetes'
+      commandLine: "source ~/.bashrc && camel plugin add kubernetes"
       component: tools
 events:
   postStart:
