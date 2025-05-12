@@ -55,11 +55,11 @@ components:
           protocol: tcp
       volumeMounts:
         - name: mqtt-conf
-          path: /mosquitto/config
+          path: /home/user/mqtt-conf
         - name: mqtt-data
-          path: /mosquitto/data
+          path: /home/user/mqtt-data
         - name: mqtt-log
-          path: /mosquitto/log
+          path: /home/user/mqtt-log
   - name: m2
     volume:
       size: 1G
