@@ -1,0 +1,44 @@
+{{- if .Values.build.enabled -}}
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: {{ include "camel-mqtt-export.fullname" . }}-build # Templated name
+  labels:
+    {{- include "camel-mqtt-export.labels" . | nindent 4 }}
+spec:
+  agentConfig: {}
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: {{ .Values.image.name }}:{{ .Values.image.tag }} # Use values from values.yaml
+  postCommit: {}
+  resources:
+    requests:
+      {{- toYaml .Values.build.resources.requests | nindent 6 }} # Use values from values.yaml
+  runPolicy: Serial
+  source:
+    git:
+      uri: {{ .Values.build.gitRepoUrl }} # Use values from values.yaml
+      ref: {{ .Values.build.gitRef }} # Use values from values.yaml
+    type: Git
+    contextDir: {{ .Values.build.contextDir }} # Use values from values.yaml
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: {{ .Values.build.builderImage.name }}:{{ .Values.build.builderImage.tag }} # Use values from values.yaml
+        namespace: {{ .Values.build.builderImage.namespace }} # Use values from values.yaml
+      env:
+        - name: MAVEN_ARGS
+          value: {{ .Values.build.mavenArgs | quote }} # Use values from values.yaml
+        - name: MAVEN_OPTS
+          value: {{ .Values.build.mavenOpts | quote }} # Use values from values.yaml
+        - name: ARTIFACT_DIR
+          value: target/quarkus-app # Hardcoded for Quarkus build output
+        - name: JAVA_ARGS
+          value: "-jar quarkus-run.jar" # Hardcoded for Quarkus execution
+    type: Source
+  triggers: [] # Triggers omitted as per previous request
+{{- end }}

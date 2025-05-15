@@ -1,0 +1,19 @@
+apiVersion: v2 # The chart API version (v2 is for Helm 3)
+name: camel-mqtt-export # The name of the chart
+description: A Helm chart for deploying the Camel MQTT Export application with Mosquitto
+
+# A chart can be either an application or a library chart.
+#
+# Application charts are a collection of templates that can be packaged into versioned archives
+# to be deployed.
+#
+# Library charts provide useful utilities or functions for the chart developer. They do not
+# define any templates and are not deployed as standalone releases.
+type: application
+
+# This is the chart version. This version number should be incremented for every change to the chart.
+version: 0.1.0
+
+# This is the version number of the application being deployed. This version number should be
+# incremented for every release of the application.
+appVersion: 1.0.0 # Assuming your application version is 1.0.0, update as needed

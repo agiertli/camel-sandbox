@@ -1,0 +1,24 @@
+{{- if .Values.route.enabled -}}
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: {{ include "camel-mqtt-export.fullname" . }}-route # Templated name
+  labels:
+    {{- include "camel-mqtt-export.labels" . | nindent 4 }}
+spec:
+  {{- if .Values.route.host }}
+  host: {{ .Values.route.host | quote }} # Use values from values.yaml
+  {{- end }}
+  to:
+    kind: Service
+    name: {{ include "camel-mqtt-export.fullname" . }}-service # Refers to the templated Service name
+    weight: 100
+  port:
+    targetPort: http # Refers to the named port 'http' in the Service
+  tls:
+    termination: {{ .Values.route.tlsTermination }} # Use values from values.yaml
+    {{- if .Values.route.insecureEdgeTerminationPolicy }}
+    insecureEdgeTerminationPolicy: {{ .Values.route.insecureEdgeTerminationPolicy }} # Use values from values.yaml
+    {{- end }}
+  wildcardPolicy: None
+{{- end }}

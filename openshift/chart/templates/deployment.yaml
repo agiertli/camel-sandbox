@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "camel-mqtt-export.fullname" . }} # Templated name
+  labels:
+    {{- include "camel-mqtt-export.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }} # Use values from values.yaml
+  selector:
+    matchLabels:
+      {{- include "camel-mqtt-export.selectorLabels" . | nindent 6 }}
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        {{- include "camel-mqtt-export.selectorLabels" . | nindent 8 }}
+    spec:
+      containers:
+        - image: {{ .Values.image.name }}:{{ .Values.image.tag }} # Use values from values.yaml
+          imagePullPolicy: {{ .Values.image.pullPolicy }} # Use values from values.yaml
+          name: camel-mqtt-export
+          ports:
+            - containerPort: {{ .Values.service.appPort }} # Use values from values.yaml
+              protocol: TCP
+          resources: {} # Add resource requests/limits here if needed
+        - image: {{ .Values.mosquittoImage.name }}:{{ .Values.mosquittoImage.tag }} # Use values from values.yaml
+          imagePullPolicy: {{ .Values.mosquittoImage.pullPolicy }} # Use values from values.yaml
+          name: mosquitto
+          ports:
+            - containerPort: {{ .Values.service.mqttPort }} # Use values from values.yaml
+              protocol: TCP
+          resources: {} # Add resource requests/limits here if needed
+      restartPolicy: Always
+      # imagePullSecrets: # Uncomment and configure if pulling from a private registry
+      #   - name: <your-pull-secret-name>

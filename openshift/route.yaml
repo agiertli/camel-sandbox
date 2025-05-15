@@ -9,8 +9,10 @@ spec:
     weight: 100
   port:
     targetPort: http # Refers to the named port 'http' in the Service (port 8080)
-  # Optional: Uncomment and configure TLS if you need HTTPS
-  # tls:
-  #   termination: edge
-  #   insecureEdgeTerminationPolicy: Redirect
+  tls: # TLS configuration
+    termination: edge # Edge termination
+    # Optional: Configure insecure traffic policy
+    # insecureEdgeTerminationPolicy: Redirect # Redirects insecure traffic to HTTPS
+    # insecureEdgeTerminationPolicy: Allow # Allows both HTTP and HTTPS traffic
+    # insecureEdgeTerminationPolicy: None # Only allows HTTPS traffic
   wildcardPolicy: None
