@@ -73,6 +73,22 @@ components:
     volume:
       size: 1G
 commands:
+  - id: install-helm-chart
+    exec:
+      commandLine: "helm install mqtt-integration-bus /projects/camel-sandbox/openshift/chart"
+      component: tools
+  - id: uninstall-helm-chart
+    exec:
+      commandLine: "helm uninstall mqtt-integration-bus"
+      component: tools
+  - id: start-build
+    exec:
+      commandLine: "oc start-build mqtt-integration-bus"
+      component: tools
+  - id: restart-deployment
+    exec:
+      commandLine: "oc rollout restart deployment mqtt-integration-bus"   
+      component: tools 
   - id: install-camel-cli
     exec:
       commandLine: "source ~/.bashrc && jbang trust add https://github.com/apache/camel/ && jbang app install camel@apache/camel"

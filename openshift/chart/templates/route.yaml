@@ -3,21 +3,15 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   # Use only the full name (which is the release name) for the Route name
-  name: {{ include "integration-bus.fullname" . }} # Updated helper name
+  name: {{ include "integration-bus.fullname" . }}
   labels:
-    {{- include "integration-bus.labels" . | nindent 4 }} # Updated helper name
+    {{- include "integration-bus.labels" . | nindent 4 }}
 spec:
-  {{- if .Values.route.host }}
-  host: {{ .Values.route.host | quote }}
-  {{- else }}
-  # If no hostname is specified, use the full name as the prefix.
-  # The OpenShift router will automatically append the default routing subdomain.
-  host: {{ include "integration-bus.fullname" . }} # Updated helper name
-  {{- end }}
+  # Removed the explicit 'host' field to let OpenShift assign the default hostname.
   to:
     kind: Service
     # Refer to the Service using its name (which is now the release name)
-    name: {{ include "integration-bus.fullname" . }} # Updated helper name
+    name: {{ include "integration-bus.fullname" . }}
     weight: 100
   port:
     targetPort: http
