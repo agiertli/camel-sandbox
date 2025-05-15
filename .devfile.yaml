@@ -69,23 +69,23 @@ components:
   - name: mqtt-data
     volume:
       size: 1G
-  - name: mqtt-log
+  - name: mqtt-logo
     volume:
       size: 1G
 commands:
-  - id: install-helm-chart
+  - id: install-camel-helm-chart
     exec:
       commandLine: "helm install mqtt-integration-bus /projects/camel-sandbox/openshift/chart"
       component: tools
-  - id: uninstall-helm-chart
+  - id: uninstall-camel-helm-chart
     exec:
       commandLine: "helm uninstall mqtt-integration-bus"
       component: tools
-  - id: start-build
+  - id: start-camel-build
     exec:
       commandLine: "oc start-build mqtt-integration-bus"
       component: tools
-  - id: restart-deployment
+  - id: restart-camel-deployment
     exec:
       commandLine: "oc rollout restart deployment mqtt-integration-bus"   
       component: tools 
