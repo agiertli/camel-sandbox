@@ -1,12 +1,10 @@
-# Default values for camel-mqtt-export.
+# Default values for the Camel MQTT Export chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  # The ImageStreamTag name for your application image
-  name: camel-mqtt-export
   # The tag for your application image
   tag: latest
   # Image pull policy
@@ -49,8 +47,8 @@ build:
   contextDir: mqtt/mqtt-export
   # S2I builder image details
   builderImage:
-    name: ubi8-openjdk-17
-    tag: 1.16
+    name: ubi8-openjdk-17 # Updated builder image name
+    tag: "1.16" # Updated builder image tag (quoted for safety)
     namespace: openshift # Namespace of the builder image
   # Maven arguments for the build
   mavenArgs: "-DskipTests=true package"
@@ -66,7 +64,5 @@ build:
 imageStream:
   # Enable or disable the ImageStream
   enabled: true
-  # Name of the ImageStream
-  name: camel-mqtt-export
   # Lookup policy for the ImageStream
   lookupPolicyLocal: true

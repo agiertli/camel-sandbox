@@ -3,14 +3,21 @@ apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
   # Use only the full name (which is the release name) for the Route name
-  name: {{ include "camel-mqtt-export.fullname" . }}
+  name: {{ include "integration-bus.fullname" . }} # Updated helper name
   labels:
-    {{- include "camel-mqtt-export.labels" . | nindent 4 }}
+    {{- include "integration-bus.labels" . | nindent 4 }} # Updated helper name
 spec:
+  {{- if .Values.route.host }}
+  host: {{ .Values.route.host | quote }}
+  {{- else }}
+  # If no hostname is specified, use the full name as the prefix.
+  # The OpenShift router will automatically append the default routing subdomain.
+  host: {{ include "integration-bus.fullname" . }} # Updated helper name
+  {{- end }}
   to:
     kind: Service
     # Refer to the Service using its name (which is now the release name)
-    name: {{ include "camel-mqtt-export.fullname" . }}
+    name: {{ include "integration-bus.fullname" . }} # Updated helper name
     weight: 100
   port:
     targetPort: http

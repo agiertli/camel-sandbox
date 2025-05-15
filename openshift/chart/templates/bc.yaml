@@ -3,9 +3,9 @@ apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
   # Use only the full name (which is the release name) for the BuildConfig name
-  name: {{ include "camel-mqtt-export.fullname" . }}
+  name: {{ include "integration-bus.fullname" . }}
   labels:
-    {{- include "camel-mqtt-export.labels" . | nindent 4 }}
+    {{- include "integration-bus.labels" . | nindent 4 }}
 spec:
   agentConfig: {}
   failedBuildsHistoryLimit: 5
@@ -14,7 +14,7 @@ spec:
     to:
       kind: ImageStreamTag
       # The ImageStreamTag name should also match the release name for consistency
-      name: {{ include "camel-mqtt-export.fullname" . }}:{{ .Values.image.tag }}
+      name: {{ include "integration-bus.fullname" . }}:{{ .Values.image.tag }}
   postCommit: {}
   resources:
     requests:
@@ -32,15 +32,15 @@ spec:
         kind: ImageStreamTag
         name: {{ .Values.build.builderImage.name }}:{{ .Values.build.builderImage.tag }}
         namespace: {{ .Values.build.builderImage.namespace }}
-      env:
+      env: # Use only these environment variables
         - name: MAVEN_ARGS
           value: {{ .Values.build.mavenArgs | quote }}
         - name: MAVEN_OPTS
           value: {{ .Values.build.mavenOpts | quote }}
         - name: MAVEN_S2I_ARTIFACT_DIRS # Directory where build artifacts are placed by Maven
-          value: target/quarkus-app  
+          value: target/quarkus-app
         - name: S2I_SOURCE_DEPLOYMENTS_FILTER
-          value: "app lib quarkus quarkus-run.jar"  
+          value: "app lib quarkus quarkus-run.jar"
         - name: JAVA_APP_JAR # The name of the runnable JAR within the ARTIFACT_DIR
           value: /deployments/quarkus-run.jar
     type: Source

@@ -3,9 +3,9 @@ apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
   # Use only the full name (which is the release name) for the ImageStream name
-  name: {{ include "camel-mqtt-export.fullname" . }}
+  name: {{ include "integration-bus.fullname" . }} # Updated helper name
   labels:
-    {{- include "camel-mqtt-export.labels" . | nindent 4 }}
+    {{- include "integration-bus.labels" . | nindent 4 }} # Updated helper name
 spec:
   lookupPolicy:
     local: {{ .Values.imageStream.lookupPolicyLocal }}

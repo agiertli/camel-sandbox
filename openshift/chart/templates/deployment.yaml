@@ -1,14 +1,14 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "camel-mqtt-export.fullname" . }} # Templated name (release name)
+  name: {{ include "integration-bus.fullname" . }} # Updated helper name
   labels:
-    {{- include "camel-mqtt-export.labels" . | nindent 4 }}
+    {{- include "integration-bus.labels" . | nindent 4 }} # Updated helper name
 spec:
   replicas: {{ .Values.replicaCount }} # Use values from values.yaml
   selector:
     matchLabels:
-      {{- include "camel-mqtt-export.selectorLabels" . | nindent 6 }}
+      {{- include "integration-bus.selectorLabels" . | nindent 6 }} # Updated helper name
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -17,21 +17,21 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "camel-mqtt-export.selectorLabels" . | nindent 8 }}
+        {{- include "integration-bus.selectorLabels" . | nindent 8 }} # Updated helper name
     spec:
       containers:
         - # Reference the image using the full internal OpenShift registry path
           # Format: image-registry.openshift-image-registry.svc:5000/<namespace>/<imagestream-name>:<tag>
-          # Added quotes around the templated image value to ensure correct YAML parsing.
-          image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ include "camel-mqtt-export.fullname" . }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }} # Use values from values.yaml
-          name: camel-mqtt-export # Name of the first container (your application)
+          image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ include "integration-bus.fullname" . }}:{{ .Values.image.tag }}" # Updated helper name
+          imagePullPolicy: Always # Define when to pull the image
+          # Use the full name (release name) for the container name for consistency
+          name: {{ include "integration-bus.fullname" . }} # Updated helper name
           ports:
             - containerPort: {{ .Values.service.appPort }} # Use values from values.yaml
               protocol: TCP
           resources: {} # Add resource requests/limits here if needed
         - image: {{ .Values.mosquittoImage.name }}:{{ .Values.mosquittoImage.tag }} # Use values from values.yaml (Mosquitto is likely from an external registry)
-          imagePullPolicy: {{ .Values.mosquittoImage.pullPolicy }} # Define when to pull the image
+          imagePullPolicy: Always # Define when to pull the image
           name: mosquitto # Name of the second container (Mosquitto)
           ports:
             - containerPort: {{ .Values.service.mqttPort }} # Use values from values.yaml

@@ -2,13 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   # Use only the full name (which is the release name) for the Service name
-  name: {{ include "camel-mqtt-export.fullname" . }}
+  name: {{ include "integration-bus.fullname" . }} # Updated helper name
   labels:
-    {{- include "camel-mqtt-export.labels" . | nindent 4 }}
+    {{- include "integration-bus.labels" . | nindent 4 }} # Updated helper name
 spec:
   type: {{ .Values.service.type }}
   selector:
-    {{- include "camel-mqtt-export.selectorLabels" . | nindent 4 }}
+    {{- include "integration-bus.selectorLabels" . | nindent 4 }} # Updated helper name
   ports:
     - name: http
       protocol: TCP
