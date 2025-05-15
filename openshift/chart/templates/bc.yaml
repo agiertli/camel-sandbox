@@ -37,10 +37,12 @@ spec:
           value: {{ .Values.build.mavenArgs | quote }}
         - name: MAVEN_OPTS
           value: {{ .Values.build.mavenOpts | quote }}
-        - name: ARTIFACT_DIR
-          value: target/quarkus-app
-        - name: JAVA_ARGS
-          value: "-jar quarkus-run.jar"
+        - name: MAVEN_S2I_ARTIFACT_DIRS # Directory where build artifacts are placed by Maven
+          value: target/quarkus-app  
+        - name: S2I_SOURCE_DEPLOYMENTS_FILTER
+          value: "app lib quarkus quarkus-run.jar"  
+        - name: JAVA_APP_JAR # The name of the runnable JAR within the ARTIFACT_DIR
+          value: /deployments/quarkus-run.jar
     type: Source
   triggers: []
 {{- end }}

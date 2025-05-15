@@ -22,7 +22,8 @@ app.kubernetes.io/name: {{ include "camel-mqtt-export.name" . }}
 helm.sh/chart: {{ include "camel-mqtt-export.chart" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- if .Release.IsUpgrade }}
-app.kubernetes.io/revision: {{ .Release.Revision | toString }}
+# Explicitly quote the revision to ensure it's a string
+app.kubernetes.io/revision: "{{ .Release.Revision | toString }}"
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 app.kubernetes.io/part-of: camel-mqtt-export # Add a part-of label

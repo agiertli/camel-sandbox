@@ -7,13 +7,6 @@ metadata:
   labels:
     {{- include "camel-mqtt-export.labels" . | nindent 4 }}
 spec:
-  {{- if .Values.route.host }}
-  host: {{ .Values.route.host | quote }}
-  {{- else }}
-  # If no hostname is specified, use the full name as the prefix.
-  # The OpenShift router will automatically append the default routing subdomain.
-  host: {{ include "camel-mqtt-export.fullname" . }}
-  {{- end }}
   to:
     kind: Service
     # Refer to the Service using its name (which is now the release name)

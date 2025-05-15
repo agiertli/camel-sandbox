@@ -20,20 +20,23 @@ spec:
         {{- include "camel-mqtt-export.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - image: {{ include "camel-mqtt-export.fullname" . }}:{{ .Values.image.tag }} # Reference to the ImageStreamTag using fullname (release name) and tag from values.yaml
+        - # Reference the image using the full internal OpenShift registry path
+          # Format: image-registry.openshift-image-registry.svc:5000/<namespace>/<imagestream-name>:<tag>
+          # Added quotes around the templated image value to ensure correct YAML parsing.
+          image: "image-registry.openshift-image-registry.svc:5000/{{ .Release.Namespace }}/{{ include "camel-mqtt-export.fullname" . }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }} # Use values from values.yaml
           name: camel-mqtt-export # Name of the first container (your application)
           ports:
             - containerPort: {{ .Values.service.appPort }} # Use values from values.yaml
               protocol: TCP
           resources: {} # Add resource requests/limits here if needed
-        - image: {{ .Values.mosquittoImage.name }}:{{ .Values.mosquittoImage.tag }} # Use values from values.yaml
-          imagePullPolicy: {{ .Values.mosquittoImage.pullPolicy }} # Use values from values.yaml
+        - image: {{ .Values.mosquittoImage.name }}:{{ .Values.mosquittoImage.tag }} # Use values from values.yaml (Mosquitto is likely from an external registry)
+          imagePullPolicy: {{ .Values.mosquittoImage.pullPolicy }} # Define when to pull the image
           name: mosquitto # Name of the second container (Mosquitto)
           ports:
             - containerPort: {{ .Values.service.mqttPort }} # Use values from values.yaml
               protocol: TCP
           resources: {} # Add resource requests/limits here if needed
-      restartPolicy: Always
-      # imagePullSecrets: # Uncomment and configure if pulling from a private registry
+      restartPolicy: Always # Restart policy for the containers in the pod
+      # imagePullSecrets: # Uncomment and configure if pulling from a private registry (if needed for Mosquitto or other images)
       #   - name: <your-pull-secret-name>
