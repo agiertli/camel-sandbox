@@ -69,7 +69,7 @@ components:
   - name: mqtt-data
     volume:
       size: 1G
-  - name: mqtt-logo
+  - name: mqtt-log
     volume:
       size: 1G
 commands:
