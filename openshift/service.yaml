@@ -1,0 +1,17 @@
+apiVersion: v1 # Standard Kubernetes Service API version
+kind: Service
+metadata:
+  name: camel-mqtt-export-service # Name for your service
+spec:
+  selector:
+    app: camel-mqtt-export # Selects pods with this label
+  ports:
+    - name: http # Name for the application port
+      protocol: TCP
+      port: 8080 # Service port
+      targetPort: 8080 # Container port on the pods
+    - name: mqtt # Name for the MQTT port
+      protocol: TCP
+      port: 1883 # Service port
+      targetPort: 1883 # Container port on the pods
+  type: ClusterIP # Default service type, makes the service reachable within the cluster
