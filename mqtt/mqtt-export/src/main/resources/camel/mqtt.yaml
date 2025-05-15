@@ -3,7 +3,7 @@
       uri: kamelet:mqtt5-source
       parameters:
         topic: messages
-        brokerUrl: tcp://localhost:1883
+        brokerUrl: "{{mqtt.brokerUrl}}"
       steps:
         - choice:
             when:

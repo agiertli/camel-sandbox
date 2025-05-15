@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: camel-mqtt-export-deployment # Name for your deployment
+spec:
+  replicas: 1 # Number of pods you want to run
+  selector:
+    matchLabels:
+      app: camel-mqtt-export # Label to identify pods belonging to this deployment
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: camel-mqtt-export # Labels for the pods
+    spec:
+      containers:
+        - image: camel-mqtt-export:latest # Reference to the ImageStreamTag created by the build
+          imagePullPolicy: Always # Define when to pull the image
+          name: camel-mqtt-export # Name of the first container (your application)
+          ports:
+            - containerPort: 8080 # Replace with the actual port your Camel application listens on
+              protocol: TCP
+        - image: eclipse-mosquitto # Image for the Mosquitto container
+          imagePullPolicy: Always # Define when to pull the image
+          name: mosquitto # Name of the second container (Mosquitto)
+          ports:
+            - containerPort: 1883 # Default MQTT port
+              protocol: TCP
+      restartPolicy: Always # Restart policy for the containers in the pod

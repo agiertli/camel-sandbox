@@ -1,0 +1,41 @@
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: camel-mqtt-export-build # Name for your build configuration
+spec:
+  failedBuildsHistoryLimit: 5
+  resources:
+    requests: # Define resource requests for the build pod
+      memory: 2Gi
+    limits:
+      memory: 2Gi  
+  output:
+    to:
+      kind: ImageStreamTag
+      name: camel-mqtt-export:latest # The name and tag for the resulting image
+  postCommit: {}
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://github.com/agiertli/camel-sandbox.git # Your Git repository URL
+      ref: main # The branch to build from, change if needed
+    type: Git
+    contextDir: mqtt/mqtt-export # The specific directory within the repo containing the Maven project
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: ubi8-openjdk-17:1.16 # The S2I builder image for OpenJDK/Maven. Adjust name/tag/namespace if needed.
+        namespace: openshift # Common namespace for standard builder images. Adjust if needed.
+      env: # Add environment variables for the build process
+        - name: MAVEN_ARGS # Environment variable to pass arguments to Maven
+          value: -DskipTests=true  
+        - name: MAVEN_OPTS # Environment variable to pass JVM options to Maven
+          value: -Xmx2g  
+        - name: MAVEN_S2I_ARTIFACT_DIRS # Directory where build artifacts are placed by Maven
+          value: target/quarkus-app  
+        - name: S2I_SOURCE_DEPLOYMENTS_FILTER
+          value: "app lib quarkus quarkus-run.jar"  
+        - name: JAVA_APP_JAR # The name of the runnable JAR within the ARTIFACT_DIR
+          value: /deployments/quarkus-run.jar
+    type: Source
