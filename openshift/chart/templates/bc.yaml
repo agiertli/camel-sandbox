@@ -7,7 +7,6 @@ metadata:
   labels:
     {{- include "integration-bus.labels" . | nindent 4 }}
 spec:
-  agentConfig: {}
   failedBuildsHistoryLimit: 5
   nodeSelector: null
   output:
