@@ -1,0 +1,17 @@
+- route:
+    id: route-3110
+    from:
+      uri: kamelet:mqtt5-source
+      parameters:
+        brokerUrl: tcp://localhost:1883
+        topic: messages
+      steps:
+        - choice:
+            otherwise:
+              steps:
+                - log: Unrecognised Target
+                - to: log:unhandledMessages
+            when:
+              - steps:
+                  - log: Routing to Sequence Endpoint
+                simple: {}
