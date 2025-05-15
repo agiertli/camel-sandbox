@@ -2,10 +2,11 @@
 apiVersion: image.openshift.io/v1
 kind: ImageStream
 metadata:
-  name: {{ .Values.imageStream.name }} # Use values from values.yaml
+  # Use only the full name (which is the release name) for the ImageStream name
+  name: {{ include "camel-mqtt-export.fullname" . }}
   labels:
     {{- include "camel-mqtt-export.labels" . | nindent 4 }}
 spec:
   lookupPolicy:
-    local: {{ .Values.imageStream.lookupPolicyLocal }} # Use values from values.yaml
+    local: {{ .Values.imageStream.lookupPolicyLocal }}
 {{- end }}

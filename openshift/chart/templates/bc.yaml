@@ -2,7 +2,8 @@
 apiVersion: build.openshift.io/v1
 kind: BuildConfig
 metadata:
-  name: {{ include "camel-mqtt-export.fullname" . }}-build # Templated name
+  # Use only the full name (which is the release name) for the BuildConfig name
+  name: {{ include "camel-mqtt-export.fullname" . }}
   labels:
     {{- include "camel-mqtt-export.labels" . | nindent 4 }}
 spec:
@@ -12,33 +13,34 @@ spec:
   output:
     to:
       kind: ImageStreamTag
-      name: {{ .Values.image.name }}:{{ .Values.image.tag }} # Use values from values.yaml
+      # The ImageStreamTag name should also match the release name for consistency
+      name: {{ include "camel-mqtt-export.fullname" . }}:{{ .Values.image.tag }}
   postCommit: {}
   resources:
     requests:
-      {{- toYaml .Values.build.resources.requests | nindent 6 }} # Use values from values.yaml
+      {{- toYaml .Values.build.resources.requests | nindent 6 }}
   runPolicy: Serial
   source:
     git:
-      uri: {{ .Values.build.gitRepoUrl }} # Use values from values.yaml
-      ref: {{ .Values.build.gitRef }} # Use values from values.yaml
+      uri: {{ .Values.build.gitRepoUrl }}
+      ref: {{ .Values.build.gitRef }}
     type: Git
-    contextDir: {{ .Values.build.contextDir }} # Use values from values.yaml
+    contextDir: {{ .Values.build.contextDir }}
   strategy:
     sourceStrategy:
       from:
         kind: ImageStreamTag
-        name: {{ .Values.build.builderImage.name }}:{{ .Values.build.builderImage.tag }} # Use values from values.yaml
-        namespace: {{ .Values.build.builderImage.namespace }} # Use values from values.yaml
+        name: {{ .Values.build.builderImage.name }}:{{ .Values.build.builderImage.tag }}
+        namespace: {{ .Values.build.builderImage.namespace }}
       env:
         - name: MAVEN_ARGS
-          value: {{ .Values.build.mavenArgs | quote }} # Use values from values.yaml
+          value: {{ .Values.build.mavenArgs | quote }}
         - name: MAVEN_OPTS
-          value: {{ .Values.build.mavenOpts | quote }} # Use values from values.yaml
+          value: {{ .Values.build.mavenOpts | quote }}
         - name: ARTIFACT_DIR
-          value: target/quarkus-app # Hardcoded for Quarkus build output
+          value: target/quarkus-app
         - name: JAVA_ARGS
-          value: "-jar quarkus-run.jar" # Hardcoded for Quarkus execution
+          value: "-jar quarkus-run.jar"
     type: Source
-  triggers: [] # Triggers omitted as per previous request
+  triggers: []
 {{- end }}

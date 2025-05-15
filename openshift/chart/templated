@@ -1,0 +1,164 @@
+---
+# Source: camel-mqtt-export/templates/service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: release-name-camel-mqtt-export-service # Templated name
+  labels:
+    app.kubernetes.io/name: camel-mqtt-export
+    helm.sh/chart: camel-mqtt-export-0.1.0
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: camel-mqtt-export # Add a part-of label
+    app.kubernetes.io/version: "1.0.0"
+spec:
+  type: ClusterIP # Use values from values.yaml
+  selector:
+    app.kubernetes.io/name: camel-mqtt-export
+    app.kubernetes.io/instance: release-name
+  ports:
+    - name: http
+      protocol: TCP
+      port: 8080 # Use values from values.yaml
+      targetPort: 8080 # Use values from values.yaml
+    - name: mqtt
+      protocol: TCP
+      port: 1883 # Use values from values.yaml
+      targetPort: 1883 # Use values from values.yaml
+---
+# Source: camel-mqtt-export/templates/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: release-name-camel-mqtt-export # Templated name
+  labels:
+    app.kubernetes.io/name: camel-mqtt-export
+    helm.sh/chart: camel-mqtt-export-0.1.0
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: camel-mqtt-export # Add a part-of label
+    app.kubernetes.io/version: "1.0.0"
+spec:
+  replicas: 1 # Use values from values.yaml
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: camel-mqtt-export
+      app.kubernetes.io/instance: release-name
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: camel-mqtt-export
+        app.kubernetes.io/instance: release-name
+    spec:
+      containers:
+        - image: camel-mqtt-export:latest # Use values from values.yaml
+          imagePullPolicy: Always # Use values from values.yaml
+          name: camel-mqtt-export
+          ports:
+            - containerPort: 8080 # Use values from values.yaml
+              protocol: TCP
+          resources: {} # Add resource requests/limits here if needed
+        - image: eclipse-mosquitto:latest # Use values from values.yaml
+          imagePullPolicy: Always # Use values from values.yaml
+          name: mosquitto
+          ports:
+            - containerPort: 1883 # Use values from values.yaml
+              protocol: TCP
+          resources: {} # Add resource requests/limits here if needed
+      restartPolicy: Always
+      # imagePullSecrets: # Uncomment and configure if pulling from a private registry
+      #   - name: <your-pull-secret-name>
+---
+# Source: camel-mqtt-export/templates/bc.yaml
+apiVersion: build.openshift.io/v1
+kind: BuildConfig
+metadata:
+  name: release-name-camel-mqtt-export-build # Templated name
+  labels:
+    app.kubernetes.io/name: camel-mqtt-export
+    helm.sh/chart: camel-mqtt-export-0.1.0
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: camel-mqtt-export # Add a part-of label
+    app.kubernetes.io/version: "1.0.0"
+spec:
+  agentConfig: {}
+  failedBuildsHistoryLimit: 5
+  nodeSelector: null
+  output:
+    to:
+      kind: ImageStreamTag
+      name: camel-mqtt-export:latest # Use values from values.yaml
+  postCommit: {}
+  resources:
+    requests:
+      cpu: 1 # Use values from values.yaml
+  runPolicy: Serial
+  source:
+    git:
+      uri: https://github.com/agiertli/camel-sandbox.git # Use values from values.yaml
+      ref: main # Use values from values.yaml
+    type: Git
+    contextDir: mqtt/mqtt-export # Use values from values.yaml
+  strategy:
+    sourceStrategy:
+      from:
+        kind: ImageStreamTag
+        name: openjdk-11-openshift:latest # Use values from values.yaml
+        namespace: openshift # Use values from values.yaml
+      env:
+        - name: MAVEN_ARGS
+          value: "-DskipTests=true package" # Use values from values.yaml
+        - name: MAVEN_OPTS
+          value: "-Xmx2g" # Use values from values.yaml
+        - name: ARTIFACT_DIR
+          value: target/quarkus-app # Hardcoded for Quarkus build output
+        - name: JAVA_ARGS
+          value: "-jar quarkus-run.jar" # Hardcoded for Quarkus execution
+    type: Source
+  triggers: [] # Triggers omitted as per previous request
+---
+# Source: camel-mqtt-export/templates/is.yaml
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: camel-mqtt-export # Use values from values.yaml
+  labels:
+    app.kubernetes.io/name: camel-mqtt-export
+    helm.sh/chart: camel-mqtt-export-0.1.0
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: camel-mqtt-export # Add a part-of label
+    app.kubernetes.io/version: "1.0.0"
+spec:
+  lookupPolicy:
+    local: true # Use values from values.yaml
+---
+# Source: camel-mqtt-export/templates/route.yaml
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: release-name-camel-mqtt-export-route # Templated name
+  labels:
+    app.kubernetes.io/name: camel-mqtt-export
+    helm.sh/chart: camel-mqtt-export-0.1.0
+    app.kubernetes.io/instance: release-name
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/part-of: camel-mqtt-export # Add a part-of label
+    app.kubernetes.io/version: "1.0.0"
+spec:
+  to:
+    kind: Service
+    name: release-name-camel-mqtt-export-service # Refers to the templated Service name
+    weight: 100
+  port:
+    targetPort: http # Refers to the named port 'http' in the Service
+  tls:
+    termination: edge # Use values from values.yaml
+    insecureEdgeTerminationPolicy: Redirect # Use values from values.yaml
+  wildcardPolicy: None

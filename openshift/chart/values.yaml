@@ -49,8 +49,8 @@ build:
   contextDir: mqtt/mqtt-export
   # S2I builder image details
   builderImage:
-    name: openjdk-11-openshift
-    tag: latest
+    name: ubi8-openjdk-17
+    tag: 1.16
     namespace: openshift # Namespace of the builder image
   # Maven arguments for the build
   mavenArgs: "-DskipTests=true package"

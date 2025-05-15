@@ -14,3 +14,8 @@
     <groupId>org.apache.camel.quarkus</groupId>
     <artifactId>camel-quarkus-jaxb</artifactId>
   </dependency>
+
+  <dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-debug</artifactId>
+</dependency>

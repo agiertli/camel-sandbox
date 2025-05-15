@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "camel-mqtt-export.fullname" . }} # Templated name
+  name: {{ include "camel-mqtt-export.fullname" . }} # Templated name (release name)
   labels:
     {{- include "camel-mqtt-export.labels" . | nindent 4 }}
 spec:
@@ -20,16 +20,16 @@ spec:
         {{- include "camel-mqtt-export.selectorLabels" . | nindent 8 }}
     spec:
       containers:
-        - image: {{ .Values.image.name }}:{{ .Values.image.tag }} # Use values from values.yaml
+        - image: {{ include "camel-mqtt-export.fullname" . }}:{{ .Values.image.tag }} # Reference to the ImageStreamTag using fullname (release name) and tag from values.yaml
           imagePullPolicy: {{ .Values.image.pullPolicy }} # Use values from values.yaml
-          name: camel-mqtt-export
+          name: camel-mqtt-export # Name of the first container (your application)
           ports:
             - containerPort: {{ .Values.service.appPort }} # Use values from values.yaml
               protocol: TCP
           resources: {} # Add resource requests/limits here if needed
         - image: {{ .Values.mosquittoImage.name }}:{{ .Values.mosquittoImage.tag }} # Use values from values.yaml
           imagePullPolicy: {{ .Values.mosquittoImage.pullPolicy }} # Use values from values.yaml
-          name: mosquitto
+          name: mosquitto # Name of the second container (Mosquitto)
           ports:
             - containerPort: {{ .Values.service.mqttPort }} # Use values from values.yaml
               protocol: TCP

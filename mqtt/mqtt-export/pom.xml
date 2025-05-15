@@ -47,6 +47,11 @@
     <dependencies>
 
         <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-debug</artifactId>
+        </dependency>
+
+        <dependency>
             <groupId>io.hawt</groupId>
             <artifactId>hawtio-quarkus</artifactId>
             <version>4.4.1</version>

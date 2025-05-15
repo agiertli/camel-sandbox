@@ -2,23 +2,29 @@
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: {{ include "camel-mqtt-export.fullname" . }}-route # Templated name
+  # Use only the full name (which is the release name) for the Route name
+  name: {{ include "camel-mqtt-export.fullname" . }}
   labels:
     {{- include "camel-mqtt-export.labels" . | nindent 4 }}
 spec:
   {{- if .Values.route.host }}
-  host: {{ .Values.route.host | quote }} # Use values from values.yaml
+  host: {{ .Values.route.host | quote }}
+  {{- else }}
+  # If no hostname is specified, use the full name as the prefix.
+  # The OpenShift router will automatically append the default routing subdomain.
+  host: {{ include "camel-mqtt-export.fullname" . }}
   {{- end }}
   to:
     kind: Service
-    name: {{ include "camel-mqtt-export.fullname" . }}-service # Refers to the templated Service name
+    # Refer to the Service using its name (which is now the release name)
+    name: {{ include "camel-mqtt-export.fullname" . }}
     weight: 100
   port:
-    targetPort: http # Refers to the named port 'http' in the Service
+    targetPort: http
   tls:
-    termination: {{ .Values.route.tlsTermination }} # Use values from values.yaml
+    termination: {{ .Values.route.tlsTermination }}
     {{- if .Values.route.insecureEdgeTerminationPolicy }}
-    insecureEdgeTerminationPolicy: {{ .Values.route.insecureEdgeTerminationPolicy }} # Use values from values.yaml
+    insecureEdgeTerminationPolicy: {{ .Values.route.insecureEdgeTerminationPolicy }}
     {{- end }}
   wildcardPolicy: None
 {{- end }}
