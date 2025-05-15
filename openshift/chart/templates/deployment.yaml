@@ -35,8 +35,9 @@ spec:
               mountPath: /opt/restrictor.xml # Path inside the container to mount the file
               subPath: restrictor.xml # Mount only the specific file from the ConfigMap
           env: # Add environment variables
-            - name: AB_JOLOKIA_OPTS # Environment variable for Jolokia policy location
-              value: policyLocation=/opt/restrictor.xml
+            # Hardcoded JAVA_OPTS to pass the restrictorClass system property
+            - name: JAVA_OPTS # Environment variable to pass JVM options
+              value: "-Djolokia.policyLocation=file:///opt/restrictor.xml" # <--- REPLACE with your actual restrictor class name
         - image: {{ .Values.mosquittoImage.name }}:{{ .Values.mosquittoImage.tag }} # Use values from values.yaml (Mosquitto is likely from an external registry)
           imagePullPolicy: Always # Define when to pull the image
           name: mosquitto # Name of the second container (Mosquitto)
