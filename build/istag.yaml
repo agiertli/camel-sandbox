@@ -1,8 +1,0 @@
-apiVersion: image.openshift.io/v1
-kind: ImageStream
-metadata:
-  name: camel-mqtt-export # Name of the ImageStream
-  # namespace: <your-project-name> # Uncomment and replace with your project name if not creating in the current project
-spec:
-  lookupPolicy:
-    local: true # Typically set to true for application images built within the cluster

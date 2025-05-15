@@ -1,0 +1,16 @@
+<dependency>
+    <groupId>io.hawt</groupId>
+    <artifactId>hawtio-quarkus</artifactId>
+    <version>4.4.1</version>
+  </dependency>
+  
+  <!-- Mandatory for enabling Camel management via JMX / Hawtio -->
+  <dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-management</artifactId>
+  </dependency>
+  <!-- (Optional) Required for Hawtio Camel route diagram tab -->
+  <dependency>
+    <groupId>org.apache.camel.quarkus</groupId>
+    <artifactId>camel-quarkus-jaxb</artifactId>
+  </dependency>
