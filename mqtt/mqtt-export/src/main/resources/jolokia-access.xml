@@ -1,0 +1,4 @@
+<cors>
+        <allow-origin>*</allow-origin>
+        <ignore-scheme/>
+</cors>
