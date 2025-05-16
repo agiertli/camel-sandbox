@@ -30,14 +30,6 @@ spec:
             - containerPort: {{ .Values.service.appPort }} # Use values from values.yaml
               protocol: TCP
           resources: {} # Add resource requests/limits here if needed
-          # volumeMounts: # Mount the ConfigMap volume
-          #   - name: restrictor-config-volume # Name of the volume mount
-          #     mountPath: /opt/restrictor.xml # Path inside the container to mount the file
-          #     subPath: restrictor.xml # Mount only the specific file from the ConfigMap
-          # env: # Add environment variables
-          #   # Hardcoded JAVA_OPTS to pass the restrictorClass system property
-          #   - name: JAVA_OPTS # Environment variable to pass JVM options
-          #     value: "-Djolokia.policyLocation=file:///opt/restrictor.xml" 
         - image: {{ .Values.mosquittoImage.name }}:{{ .Values.mosquittoImage.tag }} # Use values from values.yaml (Mosquitto is likely from an external registry)
           imagePullPolicy: Always # Define when to pull the image
           name: mosquitto # Name of the second container (Mosquitto)
@@ -46,7 +38,3 @@ spec:
               protocol: TCP
           resources: {} # Add resource requests/limits here if needed
       restartPolicy: Always # Restart policy for the containers in the pod
-      # volumes: # Define the volumes for the pod
-      #   - name: restrictor-config-volume # Name of the volume
-      #     configMap:
-      #       name: restrictor-config 
