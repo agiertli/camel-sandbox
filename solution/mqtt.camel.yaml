@@ -1,0 +1,37 @@
+- route:
+    id: audit
+    description: Audit Rest Calls
+    from:
+      uri: kamelet:mqtt5-source
+      parameters:
+        brokerUrl: tcp://localhost:1883
+        topic: "#"
+      steps:
+        - choice:
+            otherwise:
+              steps:
+                - log: Unrecognised Target
+                - to: log:unhandledMessages
+            when:
+              - id: when-1622
+                description: Topic audit/account
+                steps:
+                  - log:
+                      id: log-4455
+                      message: Routing to Account endpoint
+                simple:
+                  expression: ${header.CamelMqttTopic} == 'audit/account'
+              - id: when-2499
+                description: Topic audit/cart
+                steps:
+                  - log:
+                      id: log-2171
+                      message: Routing to Cart endpoint
+                simple:
+                  expression: ${header.CamelMqttTopic} == 'audit/cart'
+              - description: Topic audit/sequence
+                steps:
+                  - log:
+                      message: Routing to Sequence endpoint
+                simple:
+                  expression: ${header.CamelMqttTopic} == 'audit/sequence'

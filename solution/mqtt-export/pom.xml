@@ -4,12 +4,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>org.example.project</groupId>
-    <artifactId>mqtt</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.vodafone</groupId>
+    <artifactId>mqtt-export</artifactId>
+    <version>1.0-SNAPHOT</version>
 
     <properties>
-        <project.build.outputTimestamp>2025-05-15T09:36:36Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2025-05-28T17:22:17Z</project.build.outputTimestamp>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <failsafe.useModulePath>false</failsafe.useModulePath>
         <maven.compiler.release>17</maven.compiler.release>
@@ -45,29 +45,6 @@
 
 
     <dependencies>
-
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-debug</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>io.hawt</groupId>
-            <artifactId>hawtio-quarkus</artifactId>
-            <version>4.4.1</version>
-          </dependency>
-          
-          <!-- Mandatory for enabling Camel management via JMX / Hawtio -->
-          <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-management</artifactId>
-          </dependency>
-          <!-- (Optional) Required for Hawtio Camel route diagram tab -->
-          <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-jaxb</artifactId>
-          </dependency>
-
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-core</artifactId>
@@ -78,11 +55,23 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-debug</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-jaxb</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-kamelet</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-log</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.camel.quarkus</groupId>
+            <artifactId>camel-quarkus-management</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
@@ -96,6 +85,16 @@
             <groupId>org.apache.camel.kamelets</groupId>
             <artifactId>camel-kamelets</artifactId>
             <version>4.11.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>0.15</version>
+        </dependency>
+        <dependency>
+            <groupId>io.hawt</groupId>
+            <artifactId>hawtio-quarkus</artifactId>
+            <version>4.4.1</version>
         </dependency>
 
 
