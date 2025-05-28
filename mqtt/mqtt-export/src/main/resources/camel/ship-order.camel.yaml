@@ -56,7 +56,7 @@
             id: to-1664
             uri: rest
             parameters:
-              host: localhost:41187
+              host: "localhost:{{rest.api.port}}"
               method: get
               path: /account
         - convertBodyTo:
@@ -75,7 +75,7 @@
             id: to-1475
             uri: rest
             parameters:
-              host: localhost:41187
+              host: "localhost:{{rest.api.port}}"
               method: get
               path: /sequence
         - convertBodyTo:
@@ -93,7 +93,7 @@
         - to:
             uri: rest
             parameters:
-              host: localhost:41187
+              host: "localhost:{{rest.api.port}}"
               method: get
               path: /cart
         - convertBodyTo:
