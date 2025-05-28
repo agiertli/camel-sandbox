@@ -4,12 +4,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.foo</groupId>
-    <artifactId>acme</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>com.vodafone</groupId>
+    <artifactId>mqtt-export</artifactId>
+    <version>1.0-SNAPHOT</version>
 
     <properties>
-        <project.build.outputTimestamp>2025-05-28T16:06:33Z</project.build.outputTimestamp>
+        <project.build.outputTimestamp>2025-05-28T17:22:17Z</project.build.outputTimestamp>
         <compiler-plugin.version>3.13.0</compiler-plugin.version>
         <failsafe.useModulePath>false</failsafe.useModulePath>
         <maven.compiler.release>17</maven.compiler.release>
@@ -59,14 +59,6 @@
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-direct</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-file</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-jaxb</artifactId>
         </dependency>
         <dependency>
@@ -84,22 +76,6 @@
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>
             <artifactId>camel-quarkus-paho-mqtt5</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-rest</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-timer</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-vertx-http</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-xslt-saxon</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.camel.quarkus</groupId>

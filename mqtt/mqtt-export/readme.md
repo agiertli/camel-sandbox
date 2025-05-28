@@ -21,11 +21,11 @@ java -jar target/quarkus-app/quarkus-run.jar
 You can create a container image directly from the `src/main/docker` resources. Here you have a precompiled base configuration which can be enhanced with any further required configuration.
 
 ```bash
-docker build -f src/main/docker/Dockerfile -t acme:1.0-SNAPSHOT .
+docker build -f src/main/docker/Dockerfile -t mqtt-export:1.0-SNAPHOT .
 ```
 
 Once the application is published, you can run it directly from the container:
 
 ```bash
-docker run -it acme:1.0-SNAPSHOT
+docker run -it mqtt-export:1.0-SNAPHOT
 ```
