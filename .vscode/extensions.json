@@ -2,6 +2,8 @@
     "recommendations": [
       "redhat.java",
       "redhat.vscode-kaoto",
-      "cnshenj.vscode-task-manager"
+      "cnshenj.vscode-task-manager",
+      "continue.continue"
+
     ]
   }
