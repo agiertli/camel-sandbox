@@ -1,8 +1,9 @@
 - route:
+    id: route-3070
     from:
       uri: kamelet:mqtt5-source
       parameters:
-        brokerUrl: "tcp://localhost:1883"
+        brokerUrl: tcp://localhost:1883
         topic: "#"
       steps:
         - log: ${body}
