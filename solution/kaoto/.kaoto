@@ -1,0 +1,29 @@
+{
+	"kaoto-datamapper-3f2390ea": {
+		"sourceBody": {
+			"type": "XML Schema",
+			"filePath": [
+				"xsd/Cart.xsd"
+			]
+		},
+		"sourceParameters": {
+			"orderSequence": {
+				"type": "Primitive",
+				"filePath": []
+			},
+			"account": {
+				"type": "XML Schema",
+				"filePath": [
+					"xsd/Account.xsd"
+				]
+			}
+		},
+		"targetBody": {
+			"type": "XML Schema",
+			"filePath": [
+				"xsd/ShipOrder.xsd"
+			]
+		},
+		"xsltPath": "kaoto-datamapper-3f2390ea.xsl"
+	}
+}
