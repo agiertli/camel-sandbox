@@ -58,7 +58,7 @@ build:
   resources:
     requests:
       cpu: 1
-      # memory: 2Gi # Uncomment and set if needed
+      memory: 3Gi 
 
 # ImageStream definition for the application image
 imageStream:
