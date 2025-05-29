@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipOrder xmlns="org.example.ShipOrder"
+           xmlns:ns0="org.example.Account"
+           xmlns:ns1="org.example.Cart"
+           OrderId="352-66-3921">
+   <OrderPerson>044-18-3865 - Mr. Nayeli Brakus</OrderPerson>
+   <ShipTo xmlns="">
+      <Name>Mr. Nayeli Brakus</Name>
+      <Address>Cory Mall, 639</Address>
+      <City>North Orieside</City>
+      <Country>Mozambique</Country>
+   </ShipTo>
+   <Item xmlns="">
+      <Title>Lightweight Copper Keyboard</Title>
+      <Note>Marble</Note>
+      <Quantity>3</Quantity>
+      <Price>84.58</Price>
+   </Item>
+   <Item xmlns="">
+      <Title>Rustic Bronze Wallet</Title>
+      <Note>Copper</Note>
+      <Quantity>5</Quantity>
+      <Price>85.75</Price>
+   </Item>
+</ShipOrder>

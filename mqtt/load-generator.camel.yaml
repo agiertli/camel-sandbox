@@ -1,0 +1,115 @@
+- beans:
+    - name: fakerInstance
+      type: com.github.javafaker.Faker
+- route:
+    id: account
+    description: Get Account
+    from:
+      id: from-2909
+      uri: rest
+      parameters:
+        method: get
+        path: /account
+      steps:
+        - bean:
+            method: address()
+            ref: fakerInstance
+        - setBody:
+            simple:
+              expression: >
+                <kaoto:Account
+                AccountId="${bean:fakerInstance.idNumber().valid()}"
+                xmlns:kaoto="org.example.Account">
+                    <Name>${bean:fakerInstance.name().fullName()}</Name>
+                    <Address>${body.streetName()}, ${body.buildingNumber()}</Address>
+                    <City>${body.city()}</City>
+                    <Country>${body.country()}</Country>
+                </kaoto:Account>
+              resultType: org.w3c.dom.Document
+        - to:
+            uri: log
+            parameters:
+              loggerName: InfoLogger
+              multiline: true
+              showBodyType: true
+              style: Fixed
+            disabled: false
+        - to:
+            id: to-2041
+            uri: kamelet:mqtt5-sink
+            parameters:
+              brokerUrl: "{{mqtt.brokerUrl}}"
+              topic: audit/account
+- route:
+    id: cart
+    description: Get Cart
+    from:
+      id: from-3429
+      uri: rest
+      parameters:
+        method: get
+        path: /cart
+      steps:
+        - bean:
+            method: commerce()
+            ref: fakerInstance
+        - setBody:
+            simple:
+              expression: >
+                <kaoto:Cart xmlns:kaoto="org.example.Cart">
+                    <Item>
+                      <Title>${body.productName()}</Title>
+                      <Note>${body.material()}</Note>
+                      <Quantity>${bean:fakerInstance.number().randomDigitNotZero()}</Quantity>
+                      <Price>${body.price()}</Price>
+                    </Item>
+                    <Item>
+                      <Title>${body.productName()}</Title>
+                      <Note>${body.material()}</Note>
+                      <Quantity>${bean:fakerInstance.number().randomDigitNotZero()}</Quantity>
+                      <Price>${body.price()}</Price>
+                    </Item>
+                </kaoto:Cart>
+              resultType: org.w3c.dom.Document
+        - to:
+            uri: log
+            parameters:
+              loggerName: InfoLogger
+              multiline: true
+              showBodyType: true
+              style: Fixed
+            disabled: false
+        - to:
+            id: to-1602
+            uri: kamelet:mqtt5-sink
+            parameters:
+              brokerUrl: "{{mqtt.brokerUrl}}"
+              topic: audit/cart
+- route:
+    id: sequence
+    description: Get Order Sequence
+    from:
+      id: from-3677
+      uri: rest
+      parameters:
+        method: get
+        path: /sequence
+      steps:
+        - setBody:
+            simple:
+              expression: ${bean:fakerInstance.idNumber().valid()}
+              resultType: java.lang.String
+        - to:
+            uri: log
+            parameters:
+              loggerName: InfoLogger
+              multiline: true
+              showBodyType: true
+              style: Fixed
+            disabled: false
+        - to:
+            id: to-2045
+            uri: kamelet:mqtt5-sink
+            parameters:
+              brokerUrl: "{{mqtt.brokerUrl}}"
+              topic: audit/sequence

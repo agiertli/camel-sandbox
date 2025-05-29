@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipOrder xmlns="org.example.ShipOrder"
+           xmlns:ns0="org.example.Account"
+           xmlns:ns1="org.example.Cart"
+           OrderId="815-95-4486">
+   <OrderPerson>634-40-2086 - Ubaldo Flatley</OrderPerson>
+   <ShipTo xmlns="">
+      <Name>Ubaldo Flatley</Name>
+      <Address>Haley Stream, 039</Address>
+      <City>West Cydneyland</City>
+      <Country>Australia</Country>
+   </ShipTo>
+   <Item xmlns="">
+      <Title>Ergonomic Wool Shoes</Title>
+      <Note>Bronze</Note>
+      <Quantity>8</Quantity>
+      <Price>35.31</Price>
+   </Item>
+   <Item xmlns="">
+      <Title>Intelligent Paper Keyboard</Title>
+      <Note>Aluminum</Note>
+      <Quantity>2</Quantity>
+      <Price>28.71</Price>
+   </Item>
+</ShipOrder>

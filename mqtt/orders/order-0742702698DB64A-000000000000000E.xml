@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipOrder xmlns="org.example.ShipOrder"
+           xmlns:ns0="org.example.Account"
+           xmlns:ns1="org.example.Cart"
+           OrderId="774-28-8955">
+   <OrderPerson>198-54-4131 - Evert Adams</OrderPerson>
+   <ShipTo xmlns="">
+      <Name>Evert Adams</Name>
+      <Address>Derrick Stravenue, 036</Address>
+      <City>Karinatown</City>
+      <Country>Moldova</Country>
+   </ShipTo>
+   <Item xmlns="">
+      <Title>Intelligent Silk Shoes</Title>
+      <Note>Concrete</Note>
+      <Quantity>5</Quantity>
+      <Price>55.72</Price>
+   </Item>
+   <Item xmlns="">
+      <Title>Incredible Cotton Gloves</Title>
+      <Note>Concrete</Note>
+      <Quantity>9</Quantity>
+      <Price>1.59</Price>
+   </Item>
+</ShipOrder>

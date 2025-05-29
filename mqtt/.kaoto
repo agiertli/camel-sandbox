@@ -1,0 +1,29 @@
+{
+	"kaoto-datamapper-f702171b": {
+		"sourceBody": {
+			"type": "XML Schema",
+			"filePath": [
+				"xsd/Cart.xsd"
+			]
+		},
+		"sourceParameters": {
+			"account": {
+				"type": "XML Schema",
+				"filePath": [
+					"xsd/Account.xsd"
+				]
+			},
+			"orderSequence": {
+				"type": "Primitive",
+				"filePath": []
+			}
+		},
+		"targetBody": {
+			"type": "XML Schema",
+			"filePath": [
+				"xsd/ShipOrder.xsd"
+			]
+		},
+		"xsltPath": "kaoto-datamapper-f702171b.xsl"
+	}
+}

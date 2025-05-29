@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipOrder xmlns="org.example.ShipOrder"
+           xmlns:ns0="org.example.Account"
+           xmlns:ns1="org.example.Cart"
+           OrderId="688-28-1183">
+   <OrderPerson>642-88-6511 - Baron Koelpin</OrderPerson>
+   <ShipTo xmlns="">
+      <Name>Baron Koelpin</Name>
+      <Address>Carlotta Hills, 4994</Address>
+      <City>Mayertown</City>
+      <Country>Bahrain</Country>
+   </ShipTo>
+   <Item xmlns="">
+      <Title>Synergistic Granite Clock</Title>
+      <Note>Bronze</Note>
+      <Quantity>2</Quantity>
+      <Price>10.53</Price>
+   </Item>
+   <Item xmlns="">
+      <Title>Awesome Rubber Pants</Title>
+      <Note>Plastic</Note>
+      <Quantity>5</Quantity>
+      <Price>56.11</Price>
+   </Item>
+</ShipOrder>

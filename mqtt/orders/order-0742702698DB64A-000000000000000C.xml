@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipOrder xmlns="org.example.ShipOrder"
+           xmlns:ns0="org.example.Account"
+           xmlns:ns1="org.example.Cart"
+           OrderId="083-43-6199">
+   <OrderPerson>499-35-2337 - Mr. Marc Harvey</OrderPerson>
+   <ShipTo xmlns="">
+      <Name>Mr. Marc Harvey</Name>
+      <Address>Vesta Ports, 86127</Address>
+      <City>West Alvah</City>
+      <Country>Fiji</Country>
+   </ShipTo>
+   <Item xmlns="">
+      <Title>Intelligent Plastic Clock</Title>
+      <Note>Silk</Note>
+      <Quantity>7</Quantity>
+      <Price>79.11</Price>
+   </Item>
+   <Item xmlns="">
+      <Title>Enormous Iron Watch</Title>
+      <Note>Steel</Note>
+      <Quantity>1</Quantity>
+      <Price>63.49</Price>
+   </Item>
+</ShipOrder>

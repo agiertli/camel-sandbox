@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipOrder xmlns="org.example.ShipOrder"
+           xmlns:ns0="org.example.Account"
+           xmlns:ns1="org.example.Cart"
+           OrderId="265-51-7316">
+   <OrderPerson>535-17-6546 - Isabel Schiller</OrderPerson>
+   <ShipTo xmlns="">
+      <Name>Isabel Schiller</Name>
+      <Address>Tabitha Gardens, 206</Address>
+      <City>Cronintown</City>
+      <Country>New Zealand</Country>
+   </ShipTo>
+   <Item xmlns="">
+      <Title>Incredible Rubber Hat</Title>
+      <Note>Copper</Note>
+      <Quantity>5</Quantity>
+      <Price>19.50</Price>
+   </Item>
+   <Item xmlns="">
+      <Title>Intelligent Aluminum Knife</Title>
+      <Note>Leather</Note>
+      <Quantity>6</Quantity>
+      <Price>15.78</Price>
+   </Item>
+</ShipOrder>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ShipOrder xmlns="org.example.ShipOrder"
+           xmlns:ns0="org.example.Account"
+           xmlns:ns1="org.example.Cart"
+           OrderId="049-42-4226">
+   <OrderPerson>753-36-2038 - Adaline Hahn</OrderPerson>
+   <ShipTo xmlns="">
+      <Name>Adaline Hahn</Name>
+      <Address>Ona Coves, 95103</Address>
+      <City>Port Bernie</City>
+      <Country>Sweden</Country>
+   </ShipTo>
+   <Item xmlns="">
+      <Title>Gorgeous Silk Car</Title>
+      <Note>Leather</Note>
+      <Quantity>4</Quantity>
+      <Price>65.40</Price>
+   </Item>
+   <Item xmlns="">
+      <Title>Rustic Cotton Pants</Title>
+      <Note>Aluminum</Note>
+      <Quantity>2</Quantity>
+      <Price>66.85</Price>
+   </Item>
+</ShipOrder>
