@@ -1,0 +1,8 @@
+- route:
+    from:
+      uri: "kamelet:mqtt-source"
+      parameters:
+        brokerUrl: "tcp://localhost:1883"
+        topic: "#"
+      steps:
+        - log: "Hello Vodafone V2"
